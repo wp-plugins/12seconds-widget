@@ -14,7 +14,7 @@ Adds a sidebar widget to display [12seconds](http://12seconds.tv) video status u
 
 * Displays the latest video status for a 12seconds user.
 * Can navigate to and view previous status updates.
-* You can choose to display a 'skinny' (175×290) or 'fat' (380×440) version of the widget.
+* You can choose to display a 'skinny' (175x290) or 'fat' (380x440) version of the widget.
 * You can embed the widget in a post or page using the `[12s username="some_user" size="fat/skinny"]` shortcode.
 
 For more info (options, screenshots, etc.) visit [the plugin homepage](http://www.turingtarpit.com/2009/03/12seconds-widget/ "12seconds Widget").
@@ -23,7 +23,7 @@ For more info (options, screenshots, etc.) visit [the plugin homepage](http://ww
 
 1. Verify that you have PHP5, which is required for this plugin.
 1. Download the whole *12seconds-widget* folder into the */wp-content/plugins/* directory.
-1. Activate the plugin through the ‘Plugins’ menu in WordPress.
+1. Activate the plugin through the *Plugins* menu in WordPress.
 
 **Use as a sidebar widget**
 
