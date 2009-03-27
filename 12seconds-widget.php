@@ -2,8 +2,8 @@
 /*
 Plugin Name: 12seconds Widget
 Plugin URI: http://www.turingtarpit.com/2009/03/12seconds-widget/
-Description: Adds a sidebar widget to display <a href="http://12seconds.tv">12seconds</a> video status updates. Also provides a shortcode to embed the widget in a post.
-Version: 0.2
+Description: Adds a sidebar widget to display <a href="http://12seconds.tv">12seconds</a> video status updates. Also provides shortcodes to embed the widget or individual videos in posts and pages.
+Version: 0.3
 Author: Chandima Cumaranatunge
 Author URI: http://www.turingtarpit.com
 
@@ -27,7 +27,11 @@ Author URI: http://www.turingtarpit.com
 add_action( 'widgets_init', array( TwelveSecondsWidget::ID, 'register' ));
 register_activation_hook( __FILE__, array( TwelveSecondsWidget::ID, 'activate' ));
 register_deactivation_hook( __FILE__, array( TwelveSecondsWidget::ID, 'deactivate'));
-add_shortcode('12s', array( TwelveSecondsWidget::ID, 'tag' ));
+
+/* shortcodes */
+add_shortcode('12s', array( TwelveSecondsWidget::ID, 'tag' )); // deprecated
+add_shortcode('12suser', array( TwelveSecondsWidget::ID, 'tag_user' ));
+add_shortcode('12svideo', array( TwelveSecondsWidget::ID, 'tag_video' ));
 
 class TwelveSecondsWidget 
 {
@@ -103,32 +107,57 @@ class TwelveSecondsWidget
 		echo $args['after_widget'];
 	}
 	
-	function getWidgetCode( $username, $size )
+	function getWidgetCode( $username, $size, $video  )
 	{
-		if ( empty( $username ) )
-		{ 
-			return __('<p><strong>ERROR:</strong> 12seconds <em>username</em> not specified.</p>');
-		} else {
-			switch ( strtolower( $size )) 
-			{
-				case 'skinny':
-					return '<iframe src="http://embed.12seconds.tv/i/widgetSmall?u='.$username.'" scrolling="no" allowtransparency="true" frameborder="0" width="175" height="290"></iframe>';
-					break;
-				case 'fat':
-					return '<iframe src="http://embed.12seconds.tv/i/widgetFull?u='.$username.'" scrolling="no" allowtransparency="true" frameborder="0" width="380" height="440"></iframe>';
-					break;
+		if ( empty( $video ) )
+		{
+			if ( empty( $username ) )
+			{ 
+				return __('<p><strong>ERROR:</strong> 12seconds <em>username</em> not specified.</p>');
+			} else {
+				switch ( strtolower( $size )) 
+				{
+					case 'skinny':
+						return '<iframe class="twelve-s-widget" src="http://embed.12seconds.tv/i/widgetSmall?u='.$username.'" scrolling="no" allowtransparency="true" frameborder="0" width="175" height="290"></iframe>';
+						break;
+					case 'fat':
+						return '<iframe class="twelve-s-widget" src="http://embed.12seconds.tv/i/widgetFull?u='.$username.'" scrolling="no" allowtransparency="true" frameborder="0" width="380" height="440"></iframe>';
+						break;
+				}
 			}
+		} else {
+			return '<iframe class="twelve-s-widget" src="http://embed.12seconds.tv/i/embed?v='.$video.'" scrolling="no" allowtransparency="true" frameborder="0" width="430" height="360"></iframe><span class="twelve-s-caption"><br/>From <a href="http://12seconds.tv">12seconds.tv</a></span>';
 		}
 	}
 	
-	// [12s username="some_username" size="fat"]
+	// [12s username="some_username" size="fat"] -- *** DEPRECARED ***
 	function tag( $args = array(), $content = null ) 
 	{
 		$defaults = array( 
 				'username' => '',
-				'size' => 'skinny' );
+				'size' => 'skinny', 
+				'video' => '' );
 		extract(shortcode_atts( $defaults, $args ));
-		return self::getWidgetCode( $username, $size );
+		return self::getWidgetCode( $username, $size, $video );
+	}
+	
+	
+	// [12s-user uname="some_username" size="fat"]
+	function tag_user( $args = array(), $content = null ) 
+	{
+		$defaults = array( 
+				'username' => '',
+				'size' => 'skinny');
+		extract(shortcode_atts( $defaults, $args ));
+		return self::getWidgetCode( $username, $size, null );
+	}
+	
+	// [12s-video uname="some_username" size="fat"]
+	function tag_video( $args = array(), $content = null ) 
+	{
+		$defaults = array( 'id' => '' );
+		extract(shortcode_atts( $defaults, $args ));
+		return self::getWidgetCode( null, null, $id );
 	}
 	
 	function register()
