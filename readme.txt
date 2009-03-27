@@ -59,7 +59,8 @@ Using your browser, mobile phone or any other video recording device you can rec
 
 The widget embed code <iframe> tag is assigned CSS class `twelve-s-widget`.
 
-`<iframe class="twelve-s-widget" ........... ></iframe>
+`<iframe class="twelve-s-widget" ........... ></iframe>`
+
 
 The caption for individual videos ( when you use the `12svideo` shortcode ) is assinged CSS class `twelve-s-caption` to the <span> tag.
 
