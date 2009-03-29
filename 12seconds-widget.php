@@ -3,7 +3,7 @@
 Plugin Name: 12seconds Widget
 Plugin URI: http://www.turingtarpit.com/2009/03/12seconds-widget/
 Description: Adds a sidebar widget to display <a href="http://12seconds.tv">12seconds</a> video status updates. Also provides shortcodes to embed the widget or individual videos in posts and pages.
-Version: 0.3
+Version: 0.3.1
 Author: Chandima Cumaranatunge
 Author URI: http://www.turingtarpit.com
 
@@ -22,7 +22,7 @@ Author URI: http://www.turingtarpit.com
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-//error_reporting(E_ALL);
+error_reporting(E_ALL);
 
 add_action( 'widgets_init', array( TwelveSecondsWidget::ID, 'register' ));
 register_activation_hook( __FILE__, array( TwelveSecondsWidget::ID, 'activate' ));
@@ -102,7 +102,7 @@ class TwelveSecondsWidget
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 		
-		echo self::getWidgetCode( $username, $size  );
+		echo self::getWidgetCode( $username, $size, null);
 		
 		echo $args['after_widget'];
 	}
@@ -130,7 +130,7 @@ class TwelveSecondsWidget
 		}
 	}
 	
-	// [12s username="some_username" size="fat"] -- *** DEPRECARED ***
+	// [12s username="some_username" size="fat"] -- *** DEPRECATED ***
 	function tag( $args = array(), $content = null ) 
 	{
 		$defaults = array( 
