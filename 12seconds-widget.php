@@ -22,7 +22,7 @@ Author URI: http://www.turingtarpit.com
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 add_action( 'widgets_init', array( TwelveSecondsWidget::ID, 'register' ));
 register_activation_hook( __FILE__, array( TwelveSecondsWidget::ID, 'activate' ));
