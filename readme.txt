@@ -2,7 +2,7 @@
 Tags: 12seconds,12,seconds,sidebar,widget,video,status,social networks,blogging,video blogging,micro blogging
 Requires at least: 2.5
 Tested up to: 2.7.1
-Stable tag: 0.3
+Stable tag: 0.3.1
 
 Display 12seconds video status updates on your WordPress blog.
 
